@@ -15,7 +15,14 @@ struct CreaturesListView: View {
         NavigationStack {
 //            Text("Come back & fix this!") //TODO: uncomment below code
             List(creatures.creaturesArray, id: \.self) { creature in  // for displaying, not modifying data. Use For Each to display data that may be modified
-                Text(creature.name)
+                NavigationLink {
+                    DetailView(creature: creature)
+                } label: {
+                    Text(creature.name.capitalized)
+                        .font(.title2)
+                }
+
+                
             }
             .listStyle(.plain)
             .navigationTitle("Pokemon")
