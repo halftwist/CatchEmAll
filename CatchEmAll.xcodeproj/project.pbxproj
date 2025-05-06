@@ -6,30 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DDCA3E5F2DCA746900480B82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDCA3E562DCA746900480B82 /* Assets.xcassets */; };
+		DDCA3E612DCA746900480B82 /* CatchEmAllApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA3E572DCA746900480B82 /* CatchEmAllApp.swift */; };
+		DDCA3E622DCA746900480B82 /* Creature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA3E582DCA746900480B82 /* Creature.swift */; };
+		DDCA3E632DCA746900480B82 /* CreatureDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA3E592DCA746900480B82 /* CreatureDetail.swift */; };
+		DDCA3E642DCA746900480B82 /* Creatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA3E5A2DCA746900480B82 /* Creatures.swift */; };
+		DDCA3E652DCA746900480B82 /* CreaturesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA3E5B2DCA746900480B82 /* CreaturesListView.swift */; };
+		DDCA3E662DCA746900480B82 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA3E5C2DCA746900480B82 /* DetailView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		DDCA3E562DCA746900480B82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DDCA3E572DCA746900480B82 /* CatchEmAllApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchEmAllApp.swift; sourceTree = "<group>"; };
+		DDCA3E582DCA746900480B82 /* Creature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creature.swift; sourceTree = "<group>"; };
+		DDCA3E592DCA746900480B82 /* CreatureDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatureDetail.swift; sourceTree = "<group>"; };
+		DDCA3E5A2DCA746900480B82 /* Creatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatures.swift; sourceTree = "<group>"; };
+		DDCA3E5B2DCA746900480B82 /* CreaturesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreaturesListView.swift; sourceTree = "<group>"; };
+		DDCA3E5C2DCA746900480B82 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		DDCA3E5D2DCA746900480B82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDF29FBA2DC7F75F008E3512 /* CatchEmAll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatchEmAll.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DDF29FC92DC7F7B9008E3512 /* Exceptions for "CatchEmAll" folder in "CatchEmAll" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DDF29FB92DC7F75F008E3512 /* CatchEmAll */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		DDF29FBC2DC7F75F008E3512 /* CatchEmAll */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				DDF29FC92DC7F7B9008E3512 /* Exceptions for "CatchEmAll" folder in "CatchEmAll" target */,
-			);
-			path = CatchEmAll;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		DDF29FB72DC7F75F008E3512 /* Frameworks */ = {
@@ -42,10 +39,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DDCA3E5E2DCA746900480B82 /* CatchEmAll */ = {
+			isa = PBXGroup;
+			children = (
+				DDCA3E562DCA746900480B82 /* Assets.xcassets */,
+				DDCA3E572DCA746900480B82 /* CatchEmAllApp.swift */,
+				DDCA3E682DCA748D00480B82 /* Model */,
+				DDCA3E672DCA747B00480B82 /* Views */,
+				DDCA3E5D2DCA746900480B82 /* Info.plist */,
+			);
+			path = CatchEmAll;
+			sourceTree = "<group>";
+		};
+		DDCA3E672DCA747B00480B82 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DDCA3E5B2DCA746900480B82 /* CreaturesListView.swift */,
+				DDCA3E5C2DCA746900480B82 /* DetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DDCA3E682DCA748D00480B82 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DDCA3E582DCA746900480B82 /* Creature.swift */,
+				DDCA3E592DCA746900480B82 /* CreatureDetail.swift */,
+				DDCA3E5A2DCA746900480B82 /* Creatures.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DDF29FB12DC7F75F008E3512 = {
 			isa = PBXGroup;
 			children = (
-				DDF29FBC2DC7F75F008E3512 /* CatchEmAll */,
+				DDCA3E5E2DCA746900480B82 /* CatchEmAll */,
 				DDF29FBB2DC7F75F008E3512 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,9 +100,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				DDF29FBC2DC7F75F008E3512 /* CatchEmAll */,
 			);
 			name = CatchEmAll;
 			packageProductDependencies = (
@@ -122,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDCA3E5F2DCA746900480B82 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +158,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDCA3E612DCA746900480B82 /* CatchEmAllApp.swift in Sources */,
+				DDCA3E622DCA746900480B82 /* Creature.swift in Sources */,
+				DDCA3E632DCA746900480B82 /* CreatureDetail.swift in Sources */,
+				DDCA3E642DCA746900480B82 /* Creatures.swift in Sources */,
+				DDCA3E652DCA746900480B82 /* CreaturesListView.swift in Sources */,
+				DDCA3E662DCA746900480B82 /* DetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

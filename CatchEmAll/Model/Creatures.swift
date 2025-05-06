@@ -10,7 +10,7 @@ import Foundation
 class Creatures {
     private struct Returned: Codable {
         var count: Int
-        var next: String //TODO: We want to change this to an optional due to possible NULL values
+        var next: String? //TODO: We want to change this to an optional due to possible NULL values
         var results: [Creature]
     }
     
@@ -36,10 +36,16 @@ class Creatures {
                 print("😡 JSON ERROR: Could not decode returned JSON data")
                 return
             }
-            print("😎 JSON returned! count: \(returned.count), next: \(returned.next)")
-            self.count = returned.count
-            self.urlString = returned.next
-            self.creaturesArray = returned.results
+            print("😎 JSON returned! count: \(returned.count), next: \(returned.next ?? "")")
+            
+            // Pro Tip:
+            // If you've got an async function that might take some time, but it's updating values that impact the user interface, push them to the main thread using @MianActor. There are many ways to do this, but TASK { @MainActor in works well
+            Task { @MainActor in  // forces this code to run on the main thread
+                self.count = returned.count
+                self.urlString = returned.next ?? ""  // if returned.next is not a string, a nil value will be loaded instead""
+                // When loading multiple pages of data, make sure you add new pages to any existing array, don't simply overwrite your first page with the second page, or you won't see all of your data.
+                self.creaturesArray = self.creaturesArray + returned.results
+            }
             
         } catch {
             print("😡 ERROR: Could not get data from \(urlString)")
