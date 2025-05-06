@@ -15,7 +15,7 @@ struct CreaturesListView: View {
         NavigationStack {
 
             // List using range
-            VStack {
+            ZStack {
                 List(0..<creatures.creaturesArray.count, id: \.self) { index in  // for displaying, not modifying data. Use For Each to display data that may be modified
                     LazyVStack {  // loads one "row" at a time which is needed to determine when the last row is loaded
                         NavigationLink {
@@ -46,6 +46,15 @@ struct CreaturesListView: View {
                 .listStyle(.plain)
                 .navigationTitle("Pokemon")
                 .toolbar {   // placed within the NavigationStack, not after it!
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Load All") {
+                            Task {
+                                await creatures.loadAll()
+                            }
+                            
+                        }
+                    }
+
                     ToolbarItem(placement: .status) {
                         Text("\(creatures.creaturesArray.count) of \(creatures.count)")
                     }
@@ -57,6 +66,7 @@ struct CreaturesListView: View {
                         .tint(.red)
                         .scaleEffect(4.0)
                 }
+               
             }
         }
         .task {

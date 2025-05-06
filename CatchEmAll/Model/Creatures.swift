@@ -58,5 +58,17 @@ class Creatures {
         }
     }
     
+    func loadAll() async {   // example of recursion
+        
+        Task { @MainActor in
+            guard urlString.hasPrefix( "https://" ) else { return }
+            
+            await getData()  // get next page of data
+            await loadAll()  // call loadAll again = will stop when all pages are retrieved
+
+        }
+        
+    }
+    
 }
 
