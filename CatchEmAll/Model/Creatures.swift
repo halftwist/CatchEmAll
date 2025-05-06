@@ -18,13 +18,16 @@ class Creatures {
     var urlString = "https://pokeapi.co/api/v2/pokemon/"
     var count = 0
     var creaturesArray: [Creature] = []
+    var isLoading = false
     
     func getData() async {
         print("🕸️ We are accessing the url \(urlString)")
+        isLoading = true
         
         // Ceate a URL
         guard let url = URL(string: urlString) else {
             print("😡 ERROR: Could not create a URL from \(urlString)")
+            isLoading = false
             return
         }
         
@@ -34,6 +37,7 @@ class Creatures {
             // Try to decode JSON data into our own data structues
             guard let returned = try? JSONDecoder().decode(Returned.self, from: data) else {
                 print("😡 JSON ERROR: Could not decode returned JSON data")
+                isLoading = false
                 return
             }
             print("😎 JSON returned! count: \(returned.count), next: \(returned.next ?? "")")
@@ -45,10 +49,12 @@ class Creatures {
                 self.urlString = returned.next ?? ""  // if returned.next is not a string, a nil value will be loaded instead""
                 // When loading multiple pages of data, make sure you add new pages to any existing array, don't simply overwrite your first page with the second page, or you won't see all of your data.
                 self.creaturesArray = self.creaturesArray + returned.results
+                isLoading = false
             }
             
         } catch {
             print("😡 ERROR: Could not get data from \(urlString)")
+            isLoading = false
         }
     }
     
