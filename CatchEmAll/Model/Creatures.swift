@@ -14,7 +14,6 @@ class Creatures {
         var results: [Creature]
     }
     
-    
     var urlString = "https://pokeapi.co/api/v2/pokemon/"
     var count = 0
     var creaturesArray: [Creature] = []
@@ -58,7 +57,16 @@ class Creatures {
         }
     }
     
-    func loadAll() async {   // example of recursion
+    func loadNextIfNeeded(creature: Creature) async {
+// check if last row has been loaded, if so use getData to download the next page of JSON
+        guard let lastCreature = creaturesArray.last else { return
+        }
+        if creature.id == lastCreature.id && urlString.hasPrefix("http") {
+            await getData()
+        }
+    }
+    
+    func loadAll() async {   // example of recursion  
         
         Task { @MainActor in
             guard urlString.hasPrefix( "https://" ) else { return }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CreaturesListView: View {
     @State var creatures = Creatures()
+    @State private var searchText = ""
+    
     var body: some View {
        // itializes object
 //        var creatures = ["Pikachu", "Jigglypuff", "Squirtle","Charmander"]
@@ -16,32 +18,20 @@ struct CreaturesListView: View {
 
             // List using range
             ZStack {
-                List(0..<creatures.creaturesArray.count, id: \.self) { index in  // for displaying, not modifying data. Use For Each to display data that may be modified
-                    LazyVStack {  // loads one "row" at a time which is needed to determine when the last row is loaded
+                List(searchResults) { creature in
+// Use List for displaying, not modifying data. Use For Each to display data that may be modified
+// loads one "row" at a time which is needed to determine when the last row is loaded
+                    LazyVStack {
                         NavigationLink {
-                            DetailView(creature: creatures.creaturesArray[index])
+                            DetailView(creature: creature)
                         } label: {
-                            Text("\(index+1) \(creatures.creaturesArray[index].name.capitalized)")
+                            Text("\(returnIndex(of: creature)) \(creature.name.capitalized)")
                                 .font(.title2)
                         }
                     }
-                    .task {  // check if last row has been loaded, if so use getData to download the next page of JSON
-                        guard let lastCreature = creatures.creaturesArray.last else { return
-                        }
-                        if creatures.creaturesArray[index].name == lastCreature.name && creatures.urlString.hasPrefix("http") {
-                            await creatures.getData()
-                        }
+                    .task {
+                        await creatures.loadNextIfNeeded(creature: creature)
                     }
-                    // List
-                    //            List(creatures.creaturesArray, id: \.self) { creature in  // for displaying, not modifying data. Use For Each to display data that may be modified
-                    //                NavigationLink {
-                    //                    DetailView(creature: creature)
-                    //                } label: {
-                    //                    Text(creature.name.capitalized)
-                    //                        .font(.title2)
-                    //                }
-                    
-                    
                 }
                 .listStyle(.plain)
                 .navigationTitle("Pokemon")
@@ -51,15 +41,14 @@ struct CreaturesListView: View {
                             Task {
                                 await creatures.loadAll()
                             }
-                            
                         }
                     }
 
                     ToolbarItem(placement: .status) {
                         Text("\(creatures.creaturesArray.count) of \(creatures.count)")
                     }
-                    
                 }
+                .searchable(text:$searchText)
                 
                 if creatures.isLoading {
                     ProgressView()
@@ -72,6 +61,25 @@ struct CreaturesListView: View {
         .task {
             await creatures.getData()
         }
+    }
+    
+    var searchResults: [Creature] {
+        if searchText.isEmpty {
+            return creatures.creaturesArray
+        } else {
+            return creatures.creaturesArray.filter {
+                $0.name.capitalized.contains(searchText)
+            }
+        }
+    }
+    
+    // "of" is the argument label
+    // "creature" is the parameter used inside the function
+    func returnIndex(of creature: Creature) -> Int {
+    // If you are searching on somethimg that is Identifiable(Creature struct is Identifiable), then it's better to compare .id properties than .name. It's not an issue here since names are unique.
+        guard let index =
+            creatures.creaturesArray.firstIndex(where: {$0.name == creature.name}) else { return 0 }
+        return index + 1
     }
 
 }

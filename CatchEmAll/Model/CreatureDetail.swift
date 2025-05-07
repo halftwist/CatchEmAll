@@ -10,6 +10,10 @@ import Foundation
 
 @Observable // macro that will watch objects for changes so that SwiftUI will redraw the interfaces when needed
 class CreatureDetail {
+    
+//    JSON HIERARCHY FOR https://pokeapi.co/api/v2/pokemon/1/
+//    height & weight / sprites / other / official-artwork / front-default
+    
     private struct Returned: Codable {
         var height: Double
         var weight: Double
@@ -17,7 +21,20 @@ class CreatureDetail {
     }
     
     struct Sprite: Codable {
-        var front_default: String
+        var other: Other
+    }
+    
+    struct Other: Codable {
+        var officialArtwork: OfficialArtwork
+// Use CodingKeys to map JSON keys to Swift variables
+// embeded "-" is invalid for variable names so use CodingKeys
+        enum CodingKeys: String, CodingKey {
+            case officialArtwork = "official-artwork"
+        }
+    }
+    
+    struct OfficialArtwork: Codable {
+        var front_default: String? // This might return null, which is nil in Swift
     }
     
     var urlString = "" // Updated with string passed in from creature clicked on
@@ -46,7 +63,8 @@ class CreatureDetail {
             // dats returned in the JSON file
             self.height = returned.height
             self.weight = returned.weight
-            self.imageURL = returned.sprites.front_default
+//  Pro-Tip: Do NOT use an empty String "" for any value you want to be considered an invalid URL. iOS considers "" to be a valie URL(due to it's possible use as a directory path).
+            self.imageURL = returned.sprites.other.officialArtwork.front_default ?? "n/a"  // if NULL set to "n/a"
             
         } catch {
             print("😡 ERROR: Could not get data from \(urlString)")
